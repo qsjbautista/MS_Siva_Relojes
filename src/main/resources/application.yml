@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: sivar-catalogo
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    hibernate:
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+management:
+  shell:
+    auth:
+      simple:
+        user:
+          name: crash
+          password: passwd123
