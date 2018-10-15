@@ -1,0 +1,2 @@
+DELETE FROM cat_matriz_coordenadas;
+DELETE FROM cnf_configuracion_catalogo;
