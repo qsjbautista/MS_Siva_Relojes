@@ -461,11 +461,11 @@ INSERT INTO cat_genero (id_elemento, abreviatura, etiqueta, id_configuracion) VA
 
 
 INSERT INTO cat_condiciones_generales (id_elemento, abreviatura, etiqueta, id_configuracion) VALUES (1, 'SNES', 'Sin estrenar', 3);
-INSERT INTO cat_condiciones_generales (id_elemento, abreviatura, etiqueta, id_configuracion) VALUES (2, 'MBUE', 'Muy bueno', 3);
-INSERT INTO cat_condiciones_generales (id_elemento, abreviatura, etiqueta, id_configuracion) VALUES (3, 'BUNO', 'Bueno', 3);
+INSERT INTO cat_condiciones_generales (id_elemento, abreviatura, etiqueta, id_configuracion) VALUES (2, 'MBUE', 'Muy buen estado', 3);
+INSERT INTO cat_condiciones_generales (id_elemento, abreviatura, etiqueta, id_configuracion) VALUES (3, 'BUNO', 'Buen estado', 3);
 INSERT INTO cat_condiciones_generales (id_elemento, abreviatura, etiqueta, id_configuracion) VALUES (4, 'USDO', 'Usado', 3);
 INSERT INTO cat_condiciones_generales (id_elemento, abreviatura, etiqueta, id_configuracion) VALUES (5, 'DFTO', 'Defectuoso', 3);
-INSERT INTO cat_condiciones_generales (id_elemento, abreviatura, etiqueta, id_configuracion) VALUES (6, 'DMTR', 'Desmantelar', 3);
+INSERT INTO cat_condiciones_generales (id_elemento, abreviatura, etiqueta, id_configuracion) VALUES (6, 'DMTR', 'Para desmantelar', 3);
 
 
 INSERT INTO cat_desplazamiento_comercial (id_elemento, abreviatura, etiqueta, id_configuracion) VALUES (1, 'EXLT', 'Excelente', 4);
