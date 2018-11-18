@@ -64,11 +64,17 @@ public class CatalogosRepositoryManager {
     private Map<Class<?>, CatalogosRepository<? extends AbstractCatalogo>> repositoryLocalCache;
 
     /**
+     * Bloque para que solo se registre 1 repositoria a la vez
+     */
+    private final Object lock;
+
+    /**
      * Constructor de la clase
      */
     public CatalogosRepositoryManager() {
         super();
 
+        lock = new Object();
         repositoryLocalCache = new ConcurrentHashMap<>();
     }
 
@@ -89,26 +95,32 @@ public class CatalogosRepositoryManager {
         String beanName = "catalogo" + entidad.getSimpleName() + "Repository";
 
         if (!repositoryLocalCache.containsKey(entidad)) {
-            LOGGER.info("No se encontro el repositorio {}, para la entidad {}, se procede a registrar y crear",
-                    beanName, entidad);
+            synchronized(lock) {
+                if (repositoryLocalCache.containsKey(entidad)) {
+                    return repositoryLocalCache.get(entidad);
+                }
 
-            registrarRepositorio(beanName, entidad);
-            LOGGER.info("Se registro el repositorio {}, para la entidad {}", beanName, entidad);
+                LOGGER.info("No se encontro el repositorio {}, para la entidad {}, se procede a registrar y crear",
+                        beanName, entidad);
 
-            CatalogosRepository<? extends AbstractCatalogo> repository;
+                registrarRepositorio(beanName, entidad);
+                LOGGER.info("Se registro el repositorio {}, para la entidad {}", beanName, entidad);
 
-            try {
-                repository = applicationContext.getBean(beanName, CatalogosRepository.class);
-                LOGGER.info("Se creo y recupero el repositorio {}, para la entidad {}, {}",
-                        beanName, entidad, repository);
-            } catch (Exception e) {
-                String des = String.format(
-                        "Ocurrio un erroral crear y recuperar el repositorio %s para la entidad %s", beanName, entidad);
-                LOGGER.error(des, e);
-                throw new InternalServerErrorException(NMP_SRC_9999, des, e.getMessage());
+                CatalogosRepository<? extends AbstractCatalogo> repository;
+
+                try {
+                    repository = applicationContext.getBean(beanName, CatalogosRepository.class);
+                    LOGGER.info("Se creo y recupero el repositorio {}, para la entidad {}, {}",
+                            beanName, entidad, repository);
+                } catch (Exception e) {
+                    String des = String.format(
+                            "Ocurrio un erroral crear y recuperar el repositorio %s para la entidad %s", beanName, entidad);
+                    LOGGER.error(des, e);
+                    throw new InternalServerErrorException(NMP_SRC_9999, des, e.getMessage());
+                }
+
+                repositoryLocalCache.put(entidad, repository);
             }
-
-            repositoryLocalCache.put(entidad, repository);
         }
 
         return repositoryLocalCache.get(entidad);
