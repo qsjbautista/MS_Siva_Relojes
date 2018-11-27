@@ -1,0 +1,12 @@
+---
+applications:
+- name: dev1775-sivar-catalogos
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
+  memory: 1G
+  timeout: 120
+  path: target/sivar-catalogos-0.0.1-SNAPSHOT.jar
+  env:
+    TZ: America/Mexico_City
+    spring.profiles.active: cloud
+  services:
+    - 1775-sivar-catalogos-bd
